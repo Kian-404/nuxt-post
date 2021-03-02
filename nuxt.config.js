@@ -1,10 +1,3 @@
-/*
- * @Version: 
- * @Company: Venus
- * @Date: 2021-02-24 14:27:36
- * @LastEditors: Kian_
- * @LastEditTime: 2021-02-24 16:25:41
- */
 import colors from 'vuetify/es5/util/colors'
 
 export default {

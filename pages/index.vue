@@ -1,10 +1,3 @@
-<!--
- * @Version: 
- * @Company: Venus
- * @Date: 2021-02-24 14:27:36
- * @LastEditors: Kian_
- * @LastEditTime: 2021-02-24 14:59:52
--->
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
