@@ -88,3 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+server/node_modules/*
+server/statics/img/*
