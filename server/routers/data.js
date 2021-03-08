@@ -12,7 +12,7 @@ router.get('/', async function (req, res) {
   let pageSize = parseInt(req.query['pageSize']) // 转换前端传入的每页大小
   let skip = (currentPage - 1) * pageSize // 实现分割查询的skip
   let params = {}
-  let post = postList.find(params, { 'title': 1, "createTime": 1, 'pic': 1 }).skip(skip).limit(pageSize);
+  let post = postList.find(params, { 'title': 1, "createTime": 1, 'pic': 1,  }).skip(skip).limit(pageSize);
   let postLength = 0;
   await postList.find({}, function (err, doc) {
     postLength = doc.length;
