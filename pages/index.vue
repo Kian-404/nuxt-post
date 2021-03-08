@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" sm="10" md="8">
       <div class="text-center">
         <!-- <logo />
         <vuetify-logo /> -->
@@ -14,12 +14,12 @@
             <p>
               {{ item.desc }}
             </p>
-            <v-img
+            <!-- <v-img
               :src="item.pic"
               lazy-src="https://picsum.photos/id/11/100/60"
             >
               <div class="fill-height bottom-gradient"></div>
-            </v-img>
+            </v-img> -->
           </v-card-text>
           <v-card-actions>
             <v-icon>mdi-clock-time-eight</v-icon>
@@ -78,7 +78,7 @@ export default {
     },
     async testRequset() {
       const res = await this.$axios.get('/api/test')
-      console.log(res)
+      // console.log(res)
     },
     async getPostList() {
       const res = await this.$axios.get('http://localhost:9099/data', {
@@ -87,7 +87,7 @@ export default {
           pageSize: 10,
         },
       })
-      console.log(res)
+      // console.log(res)
       this.postList = res.data.list
       this.count = res.data.count
     },

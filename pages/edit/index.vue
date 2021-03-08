@@ -14,23 +14,29 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <div class="opt-btn">
-      <v-btn depressed> 清空 </v-btn>
-      <v-btn depressed color="primary" @click="saveContent"> 保存 </v-btn>
-    </div>
-    <div>
-      <v-text-field label="输入标题" v-model="title"></v-text-field>
-    </div>
-    <client-only>
-      <mavonEditor
-        ref="md"
-        :toolbars="markdownOption"
-        defaultOpen="preview"
-        :content="handbook"
-        v-model="handbook"
-        @save="saveMarkdown"
-      />
-    </client-only>
+
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-btn color="error" class="mr-4" @click="reset"> 清 空 </v-btn>
+      <v-btn color="primary" @click="saveContent"> 保 存 </v-btn>
+      <v-text-field
+        v-model="title"
+        :counter="20"
+        :rules="titleRules"
+        label="标题"
+        required
+      ></v-text-field>
+
+      <client-only>
+        <mavonEditor
+          ref="md"
+          :toolbars="markdownOption"
+          defaultOpen="preview"
+          :content="handbook"
+          v-model="handbook"
+          @save="saveMarkdown"
+        />
+      </client-only>
+    </v-form>
   </div>
 </template>
 <script>
@@ -41,10 +47,15 @@ export default {
   },
   data() {
     return {
+      valid: true,
+      titleRules: [
+        (v) => !!v || '请输入标题',
+        (v) => (v && v.length <= 20) || '标题少于20个字符',
+      ],
       title: '',
       text: `Hello, I'm a snackbar`,
       snackbar: false,
-      savetips:"",
+      savetips: '',
       markdownOption: {
         bold: true, // 粗体
         italic: true, // 斜体
@@ -84,24 +95,36 @@ export default {
     }
   },
   methods: {
+    validate() {
+      this.$refs.form.validate()
+      console.log(this.$refs.form.validate())
+    },
+    reset() {
+      this.$refs.form.reset()
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
     saveMarkdown() {
       console.log(this.handbook)
       console.log(this.$refs.md.d_render)
       console.log(this.$refs.md.d_value)
     },
     async saveContent() {
-      let p = {
-        title: this.title,
-        content: this.$refs.md.content,
-        createTime: new Date(),
+      if (this.$refs.form.validate()) {
+        let p = {
+          title: this.title,
+          content: this.$refs.md.content,
+          createTime: new Date(),
+        }
+        console.log(p)
+        let res = await this.$axios.post('http://localhost:9099/insert', {
+          ...p,
+        })
+        this.snackbar = true
+        console.log(res)
+        this.savetips = res.data
       }
-      console.log(p)
-      let res = await this.$axios.post('http://localhost:9099/insert', {
-        ...p,
-      })
-      this.snackbar = true
-      console.log(res)
-      this.savetips = res.data;
     },
   },
 }

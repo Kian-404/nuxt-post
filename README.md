@@ -2,6 +2,7 @@
 
 ## Build Setup
 
+### 前端
 ```bash
 # install dependencies
 $ yarn install
@@ -15,6 +16,14 @@ $ yarn start
 
 # generate static project
 $ yarn generate
+```
+### 后端
+
+```bash
+
+$ cd server
+
+$ node app.js
 ```
 
 ```bash
